@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Status")]
     public float moveSpeed = 5f; // Adjust this value to control player movement speed
     public float jumpForce = 10f; // Adjust this value to control player jump force
+
+    [Header("Ground")]
     public Transform groundCheck; // Create an empty GameObject as a child of the player and assign it to this variable
     public LayerMask groundLayer; // Set the ground layer in the Inspector to properly detect if the player is on the ground
-
-    private Rigidbody2D rb;
     private bool isGrounded = false;
     private float groundCheckRadius = 0.1f; // Adjust this value to control the size of the ground check sphere
 
+    [Header("Player Object")]
+    public Transform eye1Transform;
+    public Vector3 initialSpawnPosition;
+    private Rigidbody2D rb;
+
+    [Header("Lights Object")]
     public bool LightPickedUp = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        eye1Transform = transform.Find("Eye1");
+        initialSpawnPosition = transform.position;
     }
 
     private void Update()
@@ -34,6 +43,20 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+        }
+
+        //Eye Position
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Vector3 newPosition = eye1Transform.localPosition;
+            newPosition.x = 0.3f;
+            eye1Transform.localPosition = newPosition;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Vector3 newPosition = eye1Transform.localPosition;
+            newPosition.x = -0.3f;
+            eye1Transform.localPosition = newPosition;
         }
     }
 
@@ -52,5 +75,10 @@ public class PlayerMovement : MonoBehaviour
     public bool PickUpLightCondition()
     {
         return LightPickedUp;
+    }
+
+    public Vector3 DoorPosition()
+    {
+        return initialSpawnPosition;
     }
 }
