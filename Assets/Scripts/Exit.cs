@@ -13,12 +13,21 @@ public class Exit : MonoBehaviour
 
     public bool TimerStart = false;
 
+    public GameObject spotlightObject; // GameObject with the spotlight shader material
+
+    private Renderer spotlightRenderer;
+
     private void Start()
     {
         // Find and store a reference to the PlayerMovement script
         Player = FindObjectOfType<PlayerMovement>();
 
         DoorPosition = Player.DoorPosition();
+
+        if (spotlightObject)
+            spotlightRenderer = spotlightObject.GetComponent<Renderer>();
+        
+        UpdateSpotlightPosition();
     }
 
     private void Update()
@@ -37,6 +46,17 @@ public class Exit : MonoBehaviour
             {
                 SceneManager.LoadScene(currentSceneIndex + 1);
             }
+        }
+
+        UpdateSpotlightPosition();
+    }
+
+    private void UpdateSpotlightPosition()
+    {
+        if (spotlightRenderer)
+        {
+            Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
+            spotlightRenderer.sharedMaterial.SetVector("_SpotlightCenter2", new Vector4(viewportPos.x, viewportPos.y, 0, 0));
         }
     }
 

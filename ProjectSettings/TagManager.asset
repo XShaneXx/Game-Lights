@@ -45,9 +45,18 @@ TagManager:
   - name: Player
     uniqueID: 4001388457
     locked: 0
+  - name: Maze
+    uniqueID: 2612736829
+    locked: 0
   - name: Exit
     uniqueID: 3910356725
     locked: 0
   - name: Light
     uniqueID: 1173459967
+    locked: 0
+  - name: BlackScene
+    uniqueID: 1780124495
+    locked: 0
+  - name: Eye
+    uniqueID: 3155897143
     locked: 0

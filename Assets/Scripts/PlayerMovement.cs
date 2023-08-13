@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Lights Object")]
     public bool LightPickedUp = false;
 
+    [Header("Spotlight Effect")]
+    public Material spotlightMaterial;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -57,6 +60,13 @@ public class PlayerMovement : MonoBehaviour
             Vector3 newPosition = eye1Transform.localPosition;
             newPosition.x = -0.3f;
             eye1Transform.localPosition = newPosition;
+        }
+
+        //Spotlight Position
+        if (LightPickedUp)
+        {
+            Vector3 screenPos = Camera.main.WorldToViewportPoint(transform.position);
+            spotlightMaterial.SetVector("_SpotlightCenter", new Vector4(screenPos.x, screenPos.y, 0, 0));
         }
     }
 
