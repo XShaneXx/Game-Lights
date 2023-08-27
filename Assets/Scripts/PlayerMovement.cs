@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -24,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Spotlight Effect")]
     public Material spotlightMaterial;
+    public GameObject spotlightObject;
+    public bool spotlightIsON = true;
+
+    private bool GameIsPause = false;
+    public GameObject pauseScene;
 
     private void Awake()
     {
@@ -67,6 +73,30 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 screenPos = Camera.main.WorldToViewportPoint(transform.position);
             spotlightMaterial.SetVector("_SpotlightCenter", new Vector4(screenPos.x, screenPos.y, 0, 0));
+        }
+
+        //Spotlight test
+        if (spotlightIsON && Input.GetKeyDown(KeyCode.O))
+        {
+            spotlightObject.SetActive(false);
+            spotlightIsON = false;
+        } else if (!spotlightIsON && Input.GetKeyDown(KeyCode.O))
+        {
+            spotlightObject.SetActive(true);
+            spotlightIsON = true;
+        }
+
+        //Pause
+        if (Input.GetKeyDown(KeyCode.Escape) && !GameIsPause)
+        {
+            pauseScene.SetActive(true);
+            GameIsPause = true;
+            Time.timeScale = 0f;
+        } else if (Input.GetKeyDown(KeyCode.Escape) && GameIsPause)
+        {
+            pauseScene.SetActive(false);
+            GameIsPause = false;
+            Time.timeScale = 1f;
         }
     }
 

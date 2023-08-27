@@ -15,5 +15,19 @@ public class Buttons : MonoBehaviour
         Debug.Log("Quit!!");
         Application.Quit();
     }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+        Time.timeScale = 1f;
+    }
+
+    public void TryAgain()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+        Time.timeScale = 1f;
+    }
+
     
 }

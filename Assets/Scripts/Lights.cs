@@ -6,14 +6,14 @@ public class Lights : MonoBehaviour
 {
     public bool LightPickedUp = false;
     public PlayerMovement Player;
+    
     public GameObject spotlightObject; // GameObject with the spotlight shader material
-
     private Renderer spotlightRenderer;
 
     private void Start()
     {
         Player = FindObjectOfType<PlayerMovement>();
-        
+
         if (spotlightObject)
             spotlightRenderer = spotlightObject.GetComponent<Renderer>();
         
