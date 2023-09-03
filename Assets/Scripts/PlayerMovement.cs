@@ -121,4 +121,9 @@ public class PlayerMovement : MonoBehaviour
     {
         return initialSpawnPosition;
     }
+
+    public bool lightStat()
+    {
+        return LightPickedUp;
+    }
 }

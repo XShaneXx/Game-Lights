@@ -7,6 +7,11 @@ public class Buttons : MonoBehaviour
 {
     public void StartGame()
     {
+        SceneManager.LoadScene("Level_2");
+    }
+
+    public void HowToPlay()
+    {
         SceneManager.LoadScene("Level_1");
     }
 
